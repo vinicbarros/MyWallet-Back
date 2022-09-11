@@ -24,7 +24,6 @@ const userSignUp = async (req, res) => {
       name,
       email,
       password: passwordHash,
-      balance: 0,
     });
     res.status(201).send({ message: "account created" });
   } catch (error) {
@@ -38,7 +37,7 @@ const userSignIn = async (req, res) => {
     const user = await db.collection("users").findOne({ email });
     const isValidPass = bcrypt.compareSync(password, user.password);
     if (!user || !isValidPass) {
-      return res.status(404).send({ message: "Invalid user or password" });
+      return res.status(404).send({ message: "Invalid email or password" });
     }
     const token = uuid();
     await db.collection("sessions").insertOne({
@@ -49,7 +48,7 @@ const userSignIn = async (req, res) => {
       .status(202)
       .send({ name: user.name, balance: user.balance, token });
   } catch (error) {
-    return res.status(500).send(error.message);
+    return res.status(500).send({ message: "Invalid email or password!" });
   }
 };
 
