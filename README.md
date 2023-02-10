@@ -53,7 +53,7 @@
   cd src
 ```
 
-5. Before running server, make sure that MongoDB is running in your machine and a collection called "mywallet" is created
+5. Before running server, make sure that MongoDB is running in your machine and a db called "mywallet" is created
 
 6. Start the server
 
